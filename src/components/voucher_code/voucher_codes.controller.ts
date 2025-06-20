@@ -100,6 +100,7 @@ export class VoucherCodeController {
     if (vouchers.length > 0) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const voucher = vouchers[0].toJSON();
+      await vouchers[0].update({ usageDate: '2025-06-22' });
       return res.status(HttpStatus.OK).send(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         `Congrats \`${voucher?.customer.name}\`, you have ${voucher.specialOffer.discount}% discount.`,

@@ -26,9 +26,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: 1
       },
-      trackUsage: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: 1
+      usageDate: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

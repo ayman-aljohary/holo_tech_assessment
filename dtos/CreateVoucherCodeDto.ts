@@ -17,6 +17,7 @@ export class CreateVoucherCodeDto {
     example: 'HJ82JhaA',
     maxLength: 15,
     minLength: 8,
+    uniqueItems: true,
     required: true,
   })
   code: string;
@@ -52,10 +53,10 @@ export class CreateVoucherCodeDto {
   })
   oneTimeUsage: boolean;
 
-  @IsBoolean()
-  @IsNotEmpty()
   @ApiProperty({
-    example: true,
+    example: '2025-07-11',
+    required: false,
+    nullable: true,
   })
-  trackUsage: boolean;
+  usageDate: Date;
 }

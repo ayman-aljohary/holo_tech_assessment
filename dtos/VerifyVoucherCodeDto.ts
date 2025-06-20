@@ -3,7 +3,7 @@ import {
   IsString,
   IsNotEmpty,
   MaxLength,
-  MinLength,
+  MinLength, IsEmail,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -20,19 +20,14 @@ export class VerifyVoucherCodeDto {
   })
   code: string;
 
-  @IsNumber()
+  @IsString()
+  @MaxLength(255)
   @IsNotEmpty()
+  @IsEmail()
   @ApiProperty({
-    example: 10,
+    example: 'example@xyz.abc',
+    maxLength: 255,
     required: true,
   })
-  customerId: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: 12,
-    required: true,
-  })
-  specialOfferId: number;
+  email: string;
 }

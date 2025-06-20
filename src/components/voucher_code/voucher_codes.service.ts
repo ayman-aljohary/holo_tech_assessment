@@ -52,15 +52,14 @@ export class VoucherCodesService {
   async verifyVoucher(
     voucherData: VerifyVoucherCodeDto,
   ): Promise<VoucherCode[]> {
-    const status = await this.voucherCodeModel.findAll({
+    return await this.voucherCodeModel.findAll({
       where: {
         code: voucherData?.code,
-        customerId: voucherData?.customerId,
-        specialOfferId: voucherData?.specialOfferId,
+        '$customer.email$': voucherData?.email,
         expirationDate: { [Op.gt]: new Date() },
+        usageDate: null,
       },
       include: [{ model: Customer }, { model: SpecialOffer }],
     });
-    return status;
   }
 }

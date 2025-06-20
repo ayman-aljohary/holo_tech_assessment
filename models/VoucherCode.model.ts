@@ -36,5 +36,6 @@ export class VoucherCode extends Model {
   oneTimeUsage: boolean;
 
   @Column
-  trackUsage: boolean;
+  @Type(() => Date)
+  usageDate: Date;
 }

@@ -20,3 +20,4 @@ services:
       DB_USER: root
       DB_PASSWORD: root
       DB_NAME: database_development
+    command: sh -c "npx sequelize-cli db:create && npx sequelize-cli db:migrate"

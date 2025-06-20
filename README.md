@@ -11,8 +11,10 @@ __________________________
 
 __________________________
 
-### Project setup
+### Project setup & DB creation
 $ npm install
+$ npx sequelize-cli db:create 
+$ npx sequelize-cli db:migrate
 
 __________________________
 

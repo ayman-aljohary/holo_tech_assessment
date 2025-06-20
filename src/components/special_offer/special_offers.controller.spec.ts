@@ -37,9 +37,7 @@ describe('SpecialOffersController (e2e)', () => {
 
   describe('/special_offer/:id (GET)', () => {
     it('Get special offer', async () => {
-      await request(app.getHttpServer())
-        .get('/special_offer/' + 2)
-        .expect(200);
+      await request(app.getHttpServer()).get('/special_offer/1').expect(200);
     });
   });
 

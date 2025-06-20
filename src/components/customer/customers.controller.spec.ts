@@ -38,7 +38,7 @@ describe('CustomersController (e2e)', () => {
   describe('/customer/:id (GET)', () => {
     it('Get customer information', async () => {
       await request(app.getHttpServer())
-        .get('/customer/' + 1)
+        .get('/customer/1')
         .expect(200);
     });
   });

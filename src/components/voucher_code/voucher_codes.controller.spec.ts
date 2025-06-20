@@ -12,7 +12,6 @@ describe('VoucherCodeController (e2e)', () => {
       specialOfferId: Math.floor(Math.random() * 99),
       expirationDate: '2025-09-11',
       oneTimeUsage: true,
-      trackUsage: true,
     },
     {
       code: `ttt${Math.floor(Math.random() * 9999)}ttt`,
@@ -20,7 +19,6 @@ describe('VoucherCodeController (e2e)', () => {
       specialOfferId: Math.floor(Math.random() * 99),
       expirationDate: '2025-09-11',
       oneTimeUsage: true,
-      trackUsage: true,
     },
   ];
 
@@ -45,9 +43,7 @@ describe('VoucherCodeController (e2e)', () => {
 
   describe('/voucher_code/:id (GET)', () => {
     it('Get voucher code', async () => {
-      await request(app.getHttpServer())
-        .get('/voucher_code/' + 4)
-        .expect(200);
+      await request(app.getHttpServer()).get('/voucher_code/1').expect(200);
     });
   });
 
@@ -60,7 +56,7 @@ describe('VoucherCodeController (e2e)', () => {
   describe('/voucher_code/:id (PATCH)', () => {
     it('Update voucher code', async () => {
       await request(app.getHttpServer())
-        .patch('/voucher_code/2')
+        .patch('/voucher_code/1')
         .send(mockupVoucherCodes[1])
         .expect(202)
         .expect(mockupVoucherCodes[1]);
