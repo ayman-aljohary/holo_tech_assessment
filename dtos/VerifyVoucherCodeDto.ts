@@ -4,13 +4,12 @@ import {
   IsNotEmpty,
   MaxLength,
   MinLength,
-  IsBoolean,
-  IsDateString,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateVoucherCodeDto {
+export class VerifyVoucherCodeDto {
   @IsNotEmpty()
+  @IsString()
   @MaxLength(15)
   @MinLength(8)
   @ApiProperty({
@@ -36,26 +35,4 @@ export class CreateVoucherCodeDto {
     required: true,
   })
   specialOfferId: number;
-
-  @IsDateString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: '2025-07-11',
-    required: true,
-  })
-  expirationDate: Date;
-
-  @IsBoolean()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: true,
-  })
-  oneTimeUsage: boolean;
-
-  @IsBoolean()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: true,
-  })
-  trackUsage: boolean;
 }

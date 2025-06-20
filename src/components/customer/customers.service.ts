@@ -24,9 +24,13 @@ export class CustomersService {
     });
   }
 
-  async updateOne(id, customerData): Promise<void> {
-    const customer = await this.customerModel.findOne(id);
-    await customer?.update(customerData);
+  async updateOne(id, customerData): Promise<Customer | null> {
+    const customer = await this.customerModel.findOne({ where: { id } });
+    await this.sequelize.transaction(async (t) => {
+      const transactionHost = { transaction: t };
+      await customer?.update(customerData, transactionHost);
+    });
+    return customer;
   }
 
   async save(newCustomer): Promise<any> {
@@ -37,8 +41,8 @@ export class CustomersService {
     return newCustomer;
   }
 
-  async remove(id): Promise<Customer> {
-    const customer = await this.customerModel.findOne(id);
+  async remove(id): Promise<Customer | null> {
+    const customer = await this.customerModel.findOne({ where: { id } });
     await customer?.destroy();
     return customer;
   }

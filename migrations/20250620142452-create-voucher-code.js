@@ -23,10 +23,12 @@ module.exports = {
         type: Sequelize.DATE
       },
       oneTimeUsage: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: 1
       },
       trackUsage: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: 1
       },
       createdAt: {
         allowNull: false,

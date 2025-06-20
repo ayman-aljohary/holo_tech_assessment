@@ -1,21 +1,21 @@
 import {
+  Body,
   Controller,
-  Get,
-  Post,
-  Patch,
   Delete,
-  Res,
-  Req,
+  Get,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Res,
   UsePipes,
   ValidationPipe,
-  Body,
-  Param,
 } from '@nestjs/common';
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 import { VoucherCodesService } from './voucher_codes.service';
 import { CreateVoucherCodeDto } from '../../../dtos/CreateVoucherCodeDto';
 import { ApiBody } from '@nestjs/swagger';
+import { VerifyVoucherCodeDto } from '../../../dtos/VerifyVoucherCodeDto';
 
 @Controller('voucher_code')
 export class VoucherCodeController {
@@ -28,7 +28,6 @@ export class VoucherCodeController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(
     @Body() createVoucherCodeDto: CreateVoucherCodeDto,
-    @Req() req: Request,
     @Res() res: Response,
   ) {
     try {
@@ -40,17 +39,13 @@ export class VoucherCodeController {
   }
 
   @Get('/all')
-  async getAll(@Req() req: Request, @Res() res: Response) {
+  async getAll(@Res() res: Response) {
     const voucherCodes = await this.voucherCodesService.getAll();
     return res.status(HttpStatus.OK).send(voucherCodes);
   }
 
   @Get('/:id')
-  async getOne(
-    @Param('id') id: string,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
+  async getOne(@Param('id') id: string, @Res() res: Response) {
     const voucherCodes = await this.voucherCodesService.getOne(id);
     if (voucherCodes) return res.status(HttpStatus.OK).send(voucherCodes);
     res.status(HttpStatus.NOT_FOUND).send();
@@ -60,7 +55,6 @@ export class VoucherCodeController {
   async updateOne(
     @Param('id') id: string,
     @Body() createVoucherCodeDto: CreateVoucherCodeDto,
-    @Req() req: Request,
     @Res() res: Response,
   ) {
     try {
@@ -72,16 +66,45 @@ export class VoucherCodeController {
   }
 
   @Delete('/:id')
-  async deleteOne(
-    @Param('id') id: string,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
+  async deleteOne(@Param('id') id: string, @Res() res: Response) {
     try {
       await this.voucherCodesService.remove(id);
       return res.status(HttpStatus.NO_CONTENT).send();
     } catch ({ errors }) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
+  }
+
+  @Post('/verify')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async verifyVoucher(
+    @Body() verifyVoucherCodeDto: VerifyVoucherCodeDto,
+    @Res() res: Response,
+  ) {
+    return res
+      .status(HttpStatus.OK)
+      .send(
+        (await this.voucherCodesService.verifyVoucher(verifyVoucherCodeDto))
+          .length > 0,
+      );
+  }
+
+  @Post('/redeem')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async redeemVoucher(
+    @Body() verifyVoucherCodeDto: VerifyVoucherCodeDto,
+    @Res() res: Response,
+  ) {
+    const vouchers =
+      await this.voucherCodesService.verifyVoucher(verifyVoucherCodeDto);
+    if (vouchers.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const voucher = vouchers[0].toJSON();
+      return res.status(HttpStatus.OK).send(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        `Congrats \`${voucher?.customer.name}\`, you have ${voucher.specialOffer.discount}% discount.`,
+      );
+    }
+    return res.status(HttpStatus.BAD_REQUEST).send('Invalid Code');
   }
 }
