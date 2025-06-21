@@ -11,7 +11,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: 'localhost',
+      host: 'host.docker.internal',
       port: 3306,
       username: 'root',
       password: 'root',
