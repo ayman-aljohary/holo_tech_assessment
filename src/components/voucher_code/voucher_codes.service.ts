@@ -62,4 +62,13 @@ export class VoucherCodesService {
       include: [{ model: Customer }, { model: SpecialOffer }],
     });
   }
+
+  async getVoucherByEmail(email: string): Promise<VoucherCode[]> {
+    return await this.voucherCodeModel.findAll({
+      where: {
+        '$customer.email$': email,
+      },
+      include: [{ model: Customer }, { model: SpecialOffer }],
+    });
+  }
 }

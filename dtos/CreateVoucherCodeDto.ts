@@ -1,6 +1,5 @@
 import {
   IsNumber,
-  IsString,
   IsNotEmpty,
   MaxLength,
   MinLength,
@@ -14,7 +13,7 @@ export class CreateVoucherCodeDto {
   @MaxLength(15)
   @MinLength(8)
   @ApiProperty({
-    example: 'HJ82JhaA',
+    example: 'HJ82JhaAA',
     maxLength: 15,
     minLength: 8,
     uniqueItems: true,
@@ -53,10 +52,5 @@ export class CreateVoucherCodeDto {
   })
   oneTimeUsage: boolean;
 
-  @ApiProperty({
-    example: '2025-07-11',
-    required: false,
-    nullable: true,
-  })
   usageDate: Date;
 }

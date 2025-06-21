@@ -16,6 +16,7 @@ import { VoucherCodesService } from './voucher_codes.service';
 import { CreateVoucherCodeDto } from '../../../dtos/CreateVoucherCodeDto';
 import { ApiBody } from '@nestjs/swagger';
 import { VerifyVoucherCodeDto } from '../../../dtos/VerifyVoucherCodeDto';
+import { GetVoucherCodeByEmailDto } from '../../../dtos/GetVoucherCodeByEmailDto';
 
 @Controller('voucher_code')
 export class VoucherCodesController {
@@ -33,7 +34,7 @@ export class VoucherCodesController {
     try {
       await this.voucherCodesService.save(createVoucherCodeDto);
       return res.status(HttpStatus.CREATED).send(createVoucherCodeDto);
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -60,7 +61,7 @@ export class VoucherCodesController {
     try {
       await this.voucherCodesService.updateOne(id, createVoucherCodeDto);
       return res.status(HttpStatus.ACCEPTED).send(createVoucherCodeDto);
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -70,7 +71,7 @@ export class VoucherCodesController {
     try {
       await this.voucherCodesService.remove(id);
       return res.status(HttpStatus.NO_CONTENT).send();
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -107,5 +108,20 @@ export class VoucherCodesController {
       );
     }
     return res.status(HttpStatus.BAD_REQUEST).send('Invalid Code');
+  }
+
+  @Post('/get-vouchers-by-email')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async getVouchersByEmail(
+    @Body() getVoucherCodeByEmailDto: GetVoucherCodeByEmailDto,
+    @Res() res: Response,
+  ) {
+    const vouchers = await this.voucherCodesService.getVoucherByEmail(
+      getVoucherCodeByEmailDto.email,
+    );
+    if (vouchers.length > 0) {
+      return res.status(HttpStatus.OK).send(vouchers);
+    }
+    return res.status(HttpStatus.NOT_FOUND).send('No voucher found.');
   }
 }

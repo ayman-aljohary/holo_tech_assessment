@@ -34,7 +34,7 @@ export class SpecialOffersController {
     try {
       await this.specialOffersService.save(createSpecialOfferDto);
       return res.status(HttpStatus.CREATED).send(createSpecialOfferDto);
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -66,7 +66,7 @@ export class SpecialOffersController {
     try {
       await this.specialOffersService.updateOne(id, createSpecialOfferDto);
       return res.status(HttpStatus.ACCEPTED).send(createSpecialOfferDto);
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -80,7 +80,7 @@ export class SpecialOffersController {
     try {
       await this.specialOffersService.remove(id);
       return res.status(HttpStatus.NO_CONTENT).send();
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }

@@ -34,7 +34,7 @@ export class CustomersController {
     try {
       await this.customersService.save(createCustomerDto);
       return res.status(HttpStatus.CREATED).send(createCustomerDto);
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -66,7 +66,7 @@ export class CustomersController {
     try {
       await this.customersService.updateOne(id, createCustomerDto);
       return res.status(HttpStatus.ACCEPTED).send(createCustomerDto);
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
@@ -80,7 +80,7 @@ export class CustomersController {
     try {
       await this.customersService.remove(id);
       return res.status(HttpStatus.NO_CONTENT).send();
-    } catch ({ errors }) {
+    } catch (errors) {
       return res.status(HttpStatus.BAD_REQUEST).send(errors);
     }
   }
