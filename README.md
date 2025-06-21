@@ -8,6 +8,7 @@ __________________________
 ### Docker installation
 * docker-compose build
 * docker-compose up -d
+* Open http://localhost:3000
 
 __________________________
 
