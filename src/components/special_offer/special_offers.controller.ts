@@ -2,7 +2,7 @@ import {
   Controller,
   Get,
   Post,
-  Patch,
+  Put,
   Delete,
   Res,
   Req,
@@ -56,7 +56,7 @@ export class SpecialOffersController {
     res.status(HttpStatus.NOT_FOUND).send();
   }
 
-  @Patch('/:id')
+  @Put('/:id')
   async updateOne(
     @Param('id') id: string,
     @Body() createSpecialOfferDto: CreateSpecialOfferDto,
