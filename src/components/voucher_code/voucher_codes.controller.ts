@@ -18,7 +18,7 @@ import { ApiBody } from '@nestjs/swagger';
 import { VerifyVoucherCodeDto } from '../../../dtos/VerifyVoucherCodeDto';
 
 @Controller('voucher_code')
-export class VoucherCodeController {
+export class VoucherCodesController {
   constructor(private voucherCodesService: VoucherCodesService) {}
   @Post()
   @ApiBody({

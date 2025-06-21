@@ -12,10 +12,8 @@ __________________________
 __________________________
 
 ### Project setup & DB creation
-$ npm install
-$ npx sequelize-cli db:create 
-$ npx sequelize-cli db:migrate
-
+$ npm install && npx sequelize-cli db:create && npx sequelize-cli db:migrate
++ Note: make sure to change db config in [`config/config.json`, `src/app.module.ts`]
 __________________________
 
 ### Compile and run the project
