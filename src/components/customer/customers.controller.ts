@@ -2,7 +2,7 @@ import {
   Controller,
   Get,
   Post,
-  Put,
+  Patch,
   Delete,
   Res,
   Req,
@@ -56,7 +56,7 @@ export class CustomersController {
     res.status(HttpStatus.NOT_FOUND).send();
   }
 
-  @Put('/:id')
+  @Patch('/:id')
   async updateOne(
     @Param('id') id: string,
     @Body() createCustomerDto: CreateCustomerDto,

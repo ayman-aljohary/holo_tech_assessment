@@ -5,7 +5,7 @@ import {
   Get,
   HttpStatus,
   Param,
-  Put,
+  Patch,
   Post,
   Res,
   UsePipes,
@@ -52,7 +52,7 @@ export class VoucherCodesController {
     res.status(HttpStatus.NOT_FOUND).send();
   }
 
-  @Put('/:id')
+  @Patch('/:id')
   async updateOne(
     @Param('id') id: string,
     @Body() createVoucherCodeDto: CreateVoucherCodeDto,
