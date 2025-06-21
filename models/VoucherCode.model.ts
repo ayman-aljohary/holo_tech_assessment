@@ -22,12 +22,6 @@ export class VoucherCode extends Model {
   @ForeignKey(() => SpecialOffer)
   specialOfferId: number;
 
-  @BelongsTo(() => Customer)
-  customer: Customer;
-
-  @BelongsTo(() => SpecialOffer)
-  specialOffer: SpecialOffer;
-
   @Column
   @Type(() => Date)
   expirationDate: Date;
@@ -38,4 +32,10 @@ export class VoucherCode extends Model {
   @Column
   @Type(() => Date)
   usageDate: Date;
+
+  @BelongsTo(() => Customer)
+  customer: Customer;
+
+  @BelongsTo(() => SpecialOffer)
+  specialOffer: SpecialOffer;
 }
